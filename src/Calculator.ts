@@ -4,30 +4,37 @@ import {Pull} from "./Pull.js";
 export function calculateChance() {
     let successCount: number = 0;
 
+    let count: number = (
+        document.getElementById('count') as HTMLInputElement).valueAsNumber;
     let pull: number = (
         document.getElementById('pull') as HTMLInputElement).valueAsNumber;
     let pity: number = (
-        document.getElementById('pity') as HTMLInputElement).valueAsNumber;
-    console.log((document.getElementById('guarantee') as HTMLInputElement).value);
+        document.getElementById('5-pity') as HTMLInputElement).valueAsNumber;
+    console.log((document.getElementById('5-guarantee') as HTMLInputElement).value);
     let guarantee: boolean = (
-        document.getElementById('guarantee') as HTMLInputElement).checked;
+        document.getElementById('5-guarantee') as HTMLInputElement).checked;
 
-    for (var i = 0; i < 1000000; i++) {
+    let limit: number = Math.floor(10000000 / pull);
+    for (var i = 0; i < limit; i++) {
         let player = new CharacterBanner(0, false, pity, guarantee);
-
+        
+        let amountOfHits: number = 0;
         for (var j = 0; j < pull; j++) {
             let pull: Pull = player.pullOne();
             if (pull === Pull.FiveStarFeatured) {
-                successCount++;
-                break;
+                amountOfHits++;
+                if (amountOfHits >= count) {
+                    successCount++;
+                    break;
+                }
             }
         }
     }
     
-    let outputString: string = "The chance of pulling a featured 5-star"
-        + " character in " + pull + " pull(s), given " + pity + " 5-star pity and "
-        + (guarantee ? "": "no ") + "guarantee is "
-        + (successCount / 10000.0).toFixed(2) + "\%.";
+    let outputString: string = `The chance of pulling ${count} featured 5-star(s)`
+        + ` in ${pull} pull(s), given ${pity} 5-star pity and `
+        + `${guarantee ? '': 'no '}guarantee is `
+        + `${(successCount / limit * 100).toFixed(2)}%.`;
 
     (document.getElementById("output") as HTMLTextAreaElement).value = outputString;
 }
