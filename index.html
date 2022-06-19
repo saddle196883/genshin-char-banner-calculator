@@ -12,16 +12,28 @@
         <div id="bannerimage"></div>
         <h1>VERY UNOFFICIAL GENSHIN CHARACTER BANNER PROBABILITY CALCULATOR</h1>
 
-        Calculate the chances of getting a 5* featured character.
         <form>
+            <div id="question">
+                I want to know the probability of getting ...<br>
+                <select name="functionality" id="functionality">
+                    <option value="featured-5-stars">featured 5-stars</option>
+                </select>
+            </div>
+            <br>
+            At least how many?
+            <input type="number" id="count" min="1" max="10" step="1" value="1">
+            <br>
+            <br>
             Number of pulls you have:
-            <input type="number" id="pull" min="1" max="180" step="1" value="1"><br>
+            <input type="number" id="pull" min="1" max="1800" step="1" value="1"><br>
+            <br>
 
             5-star pity count: 
-            <input type="number" id="pity" min="0" max="89" step="1" value = "0">
+            <input type="number" id="5-pity" min="0" max="89" step="1" value = "0">
             (Numbers of consecutive pulls without a 5-star)<br>
+            <br>
 
-            Do you have guaranteed? <input type="checkbox" id="guarantee"> (Tick if your
+            Do you have guaranteed? <input type="checkbox" id="5-guarantee"> (Tick if your
                 last 5-star pulled was <b>not</b> a featured 5-star.)
 
             <input type="submit" value="Submit guess" name="submit"
