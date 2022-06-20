@@ -3,49 +3,127 @@
     <head>
         <meta charset="utf-8">
         <title>Calculator</title>
-        <link href='ico/favicon.ico' rel='icon'>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href='ico/favicon.ico' rel='icon'><link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz@8..144&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles.css">
         <script type="module" src="./out/main.js"></script>
     </head>
 
     <body>
-        <div id="bannerimage"></div>
-        <h1>VERY UNOFFICIAL GENSHIN CHARACTER BANNER PROBABILITY CALCULATOR</h1>
+        <main>
+            <h1 style="text-align: center;">
+                VERY UNOFFICIAL GENSHIN CHARACTER BANNER PROBABILITY CALCULATOR
+            </h1>
 
-        <form>
-            <div id="question">
-                I want to know the probability of getting ...<br>
-                <select name="functionality" id="functionality">
-                    <option value="featured-5-stars">featured 5-stars</option>
-                </select>
-            </div>
+            <form>
+                <div id="question">
+                    I want to know the probability of getting ...<br>
+                    <select name="functionality" id="functionality">
+                        <option value="featured-5-stars">featured 5-stars</option>
+                    </select>
+                </div>
+                <br>
+                At least how many?
+                <br>
+                <input type="number" id="count" min="1" max="10" step="1" value="1">
+                <br>
+                <br>
+                Number of pulls you have:
+                <br>
+                <input type="number" id="pull" min="1" max="1800" step="1" value="1"><br>
+                <br>
+
+                5-star pity count: 
+                <br>
+                <input type="number" id="5-pity" min="0" max="89" step="1" value = "0">
+                <br>
+                (Numbers of consecutive pulls without a 5-star)<br>
+                <br>
+
+                Do you have guaranteed? <br>
+                <input type="checkbox" id="5-guarantee"> 
+                <br>
+                (Tick if your last 5-star pulled was <b>not</b> a featured 5-star.)
+                <br>
+    
+                <input type="submit" value="Calculate my chances!" name="submit"
+                    class="submitButton">
+            </form>
             <br>
-            At least how many?
-            <input type="number" id="count" min="1" max="10" step="1" value="1">
+
+            Please wait a few seconds as our simulator runs.
+
+            <br>
+            <textarea id="output" readonly ></textarea>
             <br>
             <br>
-            Number of pulls you have:
-            <input type="number" id="pull" min="1" max="1800" step="1" value="1"><br>
+            <img src="img/qiqi2.jpg" alt="My friend's rendition of Qiqi"
+            width="150" height="150" id="qiqi">
+            <br>
+        </main>
+        <div id="sideinfo">
+            <h3>What is this?</h3>
+            Inspired by
+            <a href="https://bbs.mihoyo.com/ys/article/2102609">
+                this post
+            </a>,
+            this calculator helps you to calculate the chances of getting a particular
+            scenario in a character event banner. That's it.
+
+            <h3>How does it work?</h3>
+            Coded into this calculator is an honest-to-goodness simulator, that adjusts
+            the rates of particular events (pulls) occurring based on the information it
+            has. It takes into account soft pity, hard pity and guarantees.
+
+            When these values are submitted, the scenario is played out many times, and
+            the probability is obtained by taking the ratio of the number of successes
+            to the number of trials.
+            <h3>And what are the rates exactly?</h3>
+            The chance of pulling a 5-star character is by default 0.3%. It has been
+            theorized in the post linked above that after 75 pulls without a 5-star
+            character, the rate changes to 32.4% (our soft pity). 
+            After 89 pulls without a 5 star character, the next pull is a guaranteed
+            5-star character.
+
+            For 4-star characters, the rates are 5.1% and 51.1% for default and soft pity
+            respectively.
+
+            Every time you get a 4-star (5-star) pull, there is a 50% chance of getting
+            the featured character. If you did not get the featured character, the next
+            4-star (5-star) is guaranteed to be featured.
+
+            <h3>The calculator gives me different answers every time I run it!</h3>
+            Yeah, because it works by simulating the scenario there is some natural
+            variation of the results. Unfortunately, so as to not take too long, I did
+            not let the calculator run too long to produce the results. Finding the right
+            balance of times is quite difficult and I need some time to figure it out.
+
+            In the mean time, if you don't feel confident about the results,
+            why not run it again? :)
+
+            <h3>This website looks quite bad...</h3>
+            Yes, this is my first website ever made, and I have never touched anything
+            web-related before, so cut me some slack :) I will improve on it as I learn
+            more things. That might take some time though, I'm a broke college student
+            after all.
+
+
+        </div>
+        <footer>
+            Like what you see? Share it to your friends!
+            <br>
             <br>
 
-            5-star pity count: 
-            <input type="number" id="5-pity" min="0" max="89" step="1" value = "0">
-            (Numbers of consecutive pulls without a 5-star)<br>
+            Want to know how the code works?
+            <a href="https://github.com/egg-corn/genshin-char-banner-calculator">Here it
+                is on GitHub</a>.
+            Like it, fork it, do what you want with it!
+            <br>
             <br>
 
-            Do you have guaranteed? <input type="checkbox" id="5-guarantee"> (Tick if your
-                last 5-star pulled was <b>not</b> a featured 5-star.)
-
-            <input type="submit" value="Submit guess" name="submit"
-                class="submitButton">
-        </form>
-
-        Please wait a few seconds as our simulator runs.
-
-        <textarea id="output" readonly ></textarea>
-        <br>
-        <img src="img/qiqi2.jpg" alt="My friend's rendition of Qiqi"
-        width="400" height="400" id="qiqi">
+        </footer>
     </body>
 
     <script>
