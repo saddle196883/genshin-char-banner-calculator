@@ -1,27 +1,44 @@
 import CharacterBanner from "./CharacterBanner.js";
 import {Pull} from "./Pull.js";
 
-export function calculateChance() {
+export function calculateChance(
+    count: number,
+    pull: number,
+    fourPity: number,
+    fourGuarantee: boolean, 
+    fivePity: number,
+    fiveGuarantee: boolean) {
     let successCount: number = 0;
 
-    let count: number = (
-        document.getElementById('count') as HTMLInputElement).valueAsNumber;
-    let pull: number = (
-        document.getElementById('pull') as HTMLInputElement).valueAsNumber;
-    let pity: number = (
-        document.getElementById('5-pity') as HTMLInputElement).valueAsNumber;
-    console.log((document.getElementById('5-guarantee') as HTMLInputElement).value);
-    let guarantee: boolean = (
-        document.getElementById('5-guarantee') as HTMLInputElement).checked;
+    let desiredCharacters: Pull[] = [];
 
-    let limit: number = Math.floor(10000000 / pull);
+    let functionality: HTMLFormElement = document.querySelector('#functionality');
+    if (functionality.value == "default") {
+        return;
+    } else if (functionality.value == "featured-5-stars") {
+        desiredCharacters = [Pull.FiveStarFeatured];
+    } else if (functionality.value == "5-stars") {
+        desiredCharacters = [Pull.FiveStarOther, Pull.FiveStarFeatured];
+    } else if (functionality.value == "featured-4-stars") {
+        desiredCharacters = [Pull.FourStarFeatured1, Pull.FourStarFeatured2,
+                             Pull.FourStarFeatured3];
+    } else if (functionality.value == "specific-4-star") {
+        desiredCharacters = [Pull.FourStarFeatured1];
+    } else if (functionality.value == "4-stars") {
+        desiredCharacters = [Pull.FourStarFeatured1, Pull.FourStarFeatured2,
+                             Pull.FourStarFeatured3, Pull.FourStarOther];
+    }
+
+    let limit: number = Math.floor(15000000 / count / pull); // arbitrary umber for speed
+
     for (var i = 0; i < limit; i++) {
-        let player = new CharacterBanner(0, false, pity, guarantee);
+        let player = new CharacterBanner(
+            fourPity, fourGuarantee, fivePity, fiveGuarantee);
         
         let amountOfHits: number = 0;
         for (var j = 0; j < pull; j++) {
-            let pull: Pull = player.pullOne();
-            if (pull === Pull.FiveStarFeatured) {
+            let result: Pull = player.pullOne();
+            if (desiredCharacters.some(x => x == result)) {
                 amountOfHits++;
                 if (amountOfHits >= count) {
                     successCount++;
@@ -31,10 +48,9 @@ export function calculateChance() {
         }
     }
     
-    let outputString: string = `The chance of pulling ${count} featured 5-star(s)`
-        + ` in ${pull} pull(s), given ${pity} 5-star pity and `
-        + `${guarantee ? '': 'no '}guarantee is `
-        + `${(successCount / limit * 100).toFixed(2)}%.`;
+    let outputString: string = `${(successCount / limit * 100).toFixed(1)}%`;
 
     (document.getElementById("output") as HTMLTextAreaElement).value = outputString;
+
+    return;
 }

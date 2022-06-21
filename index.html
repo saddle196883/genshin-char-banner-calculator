@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <title>Calculator</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +21,13 @@
             <form>
                 <div id="question">
                     I want to know the probability of getting ...<br>
-                    <select name="functionality" id="functionality">
+                    <select name="functionality" id="functionality" select="default">
+                        <option value="default">choose something here</option>
                         <option value="featured-5-stars">featured 5-stars</option>
+                        <option value="5-stars">any 5-star</option>
+                        <option value="featured-4-stars">featured 4-stars</option>
+                        <option value="specific-4-star">a specific featured 4-star</option>
+                        <option value="4-stars">any 4-stars</option>
                     </select>
                 </div>
                 <br>
@@ -35,6 +41,18 @@
                 <input type="number" id="pull" min="1" max="1800" step="1" value="1"><br>
                 <br>
 
+                4-star pity count:
+                <br>
+                <input type="number" id="4-pity" min="0" max="9" step="1" value = "0">
+                <br>
+                (Numbers of consecutive pulls without a 4-star)<br><br>
+
+                Do you have a 4-star guarantee? <br>
+                <input type="checkbox" id="4-guarantee"> 
+                <br>
+                (Tick if your last 5-star pulled was <b>not</b> a featured 4-star.)
+                <br><br>
+
                 5-star pity count: 
                 <br>
                 <input type="number" id="5-pity" min="0" max="89" step="1" value = "0">
@@ -42,7 +60,7 @@
                 (Numbers of consecutive pulls without a 5-star)<br>
                 <br>
 
-                Do you have guaranteed? <br>
+                Do you have a 5-star guarantee? <br>
                 <input type="checkbox" id="5-guarantee"> 
                 <br>
                 (Tick if your last 5-star pulled was <b>not</b> a featured 5-star.)
@@ -58,9 +76,6 @@
             <br>
             <textarea id="output" readonly ></textarea>
             <br>
-            <br>
-            <img src="img/qiqi2.jpg" alt="My friend's rendition of Qiqi"
-            width="150" height="150" id="qiqi">
             <br>
         </main>
         <div id="sideinfo">
@@ -88,7 +103,11 @@
             5-star character.
 
             For 4-star characters, the rates are 5.1% and 51.1% for default and soft pity
-            respectively.
+            respectively. After 9 pulls without a 4-star, the next pull is guaranteed to
+            be a <b>4-star and above</b>. Getting a 5-star here does not restart the
+            4-star pity, so the next pull is a guaranteed 4-star or above again.
+            Since the chance of getting a 4-star is affected by the 5-star pity, we need
+            your 5-star pity to determine the chances of you getting a 4-star.
 
             Every time you get a 4-star (5-star) pull, there is a 50% chance of getting
             the featured character. If you did not get the featured character, the next
@@ -108,7 +127,10 @@
             web-related before, so cut me some slack :) I will improve on it as I learn
             more things. That might take some time though, I'm a broke college student
             after all.
-
+            <br><br>
+            <img src="img/qiqi2.jpg" alt="My friend's rendition of Qiqi"
+            width="150" height="150" id="qiqi">
+            <br>
 
         </div>
         <footer>
@@ -127,7 +149,20 @@
     </body>
 
     <script>
+        document.querySelector("#functionality").value = "default";
         document.getElementById("output").value = "";
+        document.getElementById("count").disabled = true;
+        document.getElementById("count").value = 1;
+        document.getElementById("pull").disabled = true;
+        document.getElementById("pull").value = 1;
+        document.getElementById("5-pity").disabled = true;
+        document.getElementById("5-pity").value = 0;
+        document.getElementById("5-guarantee").disabled = true;
+        document.getElementById("5-guarantee").value = "off";
+        document.getElementById("4-pity").disabled = true;
+        document.getElementById("4-pity").value = 0;
+        document.getElementById("4-guarantee").disabled = true;
+        document.getElementById("4-guarantee").disabled = "off";
     </script>
 
 </html>

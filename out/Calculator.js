@@ -1,18 +1,35 @@
 import CharacterBanner from "./CharacterBanner.js";
-export function calculateChance() {
+export function calculateChance(count, pull, fourPity, fourGuarantee, fivePity, fiveGuarantee) {
     let successCount = 0;
-    let count = document.getElementById('count').valueAsNumber;
-    let pull = document.getElementById('pull').valueAsNumber;
-    let pity = document.getElementById('5-pity').valueAsNumber;
-    console.log(document.getElementById('5-guarantee').value);
-    let guarantee = document.getElementById('5-guarantee').checked;
-    let limit = Math.floor(10000000 / pull);
+    let desiredCharacters = [];
+    let functionality = document.querySelector('#functionality');
+    if (functionality.value == "default") {
+        return;
+    }
+    else if (functionality.value == "featured-5-stars") {
+        desiredCharacters = [5];
+    }
+    else if (functionality.value == "5-stars") {
+        desiredCharacters = [6, 5];
+    }
+    else if (functionality.value == "featured-4-stars") {
+        desiredCharacters = [1, 2,
+            3];
+    }
+    else if (functionality.value == "specific-4-star") {
+        desiredCharacters = [1];
+    }
+    else if (functionality.value == "4-stars") {
+        desiredCharacters = [1, 2,
+            3, 4];
+    }
+    let limit = Math.floor(15000000 / count / pull);
     for (var i = 0; i < limit; i++) {
-        let player = new CharacterBanner(0, false, pity, guarantee);
+        let player = new CharacterBanner(fourPity, fourGuarantee, fivePity, fiveGuarantee);
         let amountOfHits = 0;
         for (var j = 0; j < pull; j++) {
-            let pull = player.pullOne();
-            if (pull === 5) {
+            let result = player.pullOne();
+            if (desiredCharacters.some(x => x == result)) {
                 amountOfHits++;
                 if (amountOfHits >= count) {
                     successCount++;
@@ -21,9 +38,7 @@ export function calculateChance() {
             }
         }
     }
-    let outputString = `The chance of pulling ${count} featured 5-star(s)`
-        + ` in ${pull} pull(s), given ${pity} 5-star pity and `
-        + `${guarantee ? '' : 'no '}guarantee is `
-        + `${(successCount / limit * 100).toFixed(2)}%.`;
+    let outputString = `${(successCount / limit * 100).toFixed(2)}%`;
     document.getElementById("output").value = outputString;
+    return;
 }
