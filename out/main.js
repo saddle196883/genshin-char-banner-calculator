@@ -66,19 +66,15 @@ form.addEventListener('submit', (e) => {
     if (document.getElementById("5-pity").disabled) {
         fivePity = 0;
     }
-    ;
     if (document.getElementById("5-guarantee").disabled) {
         fiveGuarantee = false;
     }
-    ;
     if (document.getElementById("4-pity").disabled) {
         fourPity = 0;
     }
-    ;
     if (document.getElementById("4-guarantee").disabled) {
         fourGuarantee = false;
     }
-    ;
     calculateChance(count, pull, fourPity, fourGuarantee, fivePity, fiveGuarantee);
     e.preventDefault();
 });
