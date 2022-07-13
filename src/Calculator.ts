@@ -5,7 +5,7 @@ export function calculateChance(
     count: number,
     pull: number,
     fourPity: number,
-    fourGuarantee: boolean, 
+    fourGuarantee: boolean,
     fivePity: number,
     fiveGuarantee: boolean) {
     let successCount: number = 0;
@@ -21,22 +21,22 @@ export function calculateChance(
         desiredCharacters = [Pull.FiveStarOther, Pull.FiveStarFeatured];
     } else if (functionality.value == "featured-4-stars") {
         desiredCharacters = [Pull.FourStarFeatured1, Pull.FourStarFeatured2,
-                             Pull.FourStarFeatured3];
+            Pull.FourStarFeatured3];
     } else if (functionality.value == "specific-4-star") {
         desiredCharacters = [Pull.FourStarFeatured1];
     } else if (functionality.value == "4-stars") {
         desiredCharacters = [Pull.FourStarFeatured1, Pull.FourStarFeatured2,
-                             Pull.FourStarFeatured3, Pull.FourStarOther];
+            Pull.FourStarFeatured3, Pull.FourStarOther];
     }
 
-    let limit: number = Math.floor(15000000 / count / pull); // arbitrary umber for speed
+    let limit: number = Math.floor(15000000 / count / pull); // arbitrary number for speed
 
-    for (var i = 0; i < limit; i++) {
+    for (let i = 0; i < limit; i++) {
         let player = new CharacterBanner(
             fourPity, fourGuarantee, fivePity, fiveGuarantee);
-        
+
         let amountOfHits: number = 0;
-        for (var j = 0; j < pull; j++) {
+        for (let j = 0; j < pull; j++) {
             let result: Pull = player.pullOne();
             if (desiredCharacters.some(x => x == result)) {
                 amountOfHits++;
@@ -47,10 +47,8 @@ export function calculateChance(
             }
         }
     }
-    
-    let outputString: string = `${(successCount / limit * 100).toFixed(1)}%`;
 
-    (document.getElementById("output") as HTMLTextAreaElement).value = outputString;
+    (document.getElementById("output") as HTMLTextAreaElement).value = `${(successCount / limit * 100).toFixed(1)}%`;
 
     return;
 }

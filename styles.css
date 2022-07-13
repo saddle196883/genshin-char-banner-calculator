@@ -9,6 +9,10 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+    text-align: center;
+}
+
 body {
     display: grid;
     height: 100vh;
@@ -21,8 +25,7 @@ body {
         "main sideinfo"
         "main footer";
 
-    background: url(img/horrible_background.jpg) no-repeat top center;
-    background-attachment: fixed;
+    background: url(img/horrible_background.jpg) no-repeat fixed top center;
     background-size: cover;
 }
 
@@ -42,12 +45,10 @@ main {
 }
 
 #sideinfo {
-    padding: 16px 20px;
     grid-area: sideinfo;
     background: rgba(219, 234, 255, 0.7);
     border-radius: var(--main-radius);
-    padding-top: var(--main-padding);
-    padding-bottom: var(--main-padding);
+    padding: var(--main-padding) 20px;
 
     text-align: center;
 }
@@ -93,7 +94,6 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
     padding: 16px 20px;
     width: 80px;
-    background-color: white;
     background-position: 10px 10px;
     background-repeat: no-repeat;
     background-color: #ffffff;
