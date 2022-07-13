@@ -29,8 +29,8 @@ export default class CharacterBanner {
         // Our rates are in parts per 30000.
         // This is because it is the smallest number that keeps our rates
         // whole. Beside these numbers I annotate the rates in % as well.
-        let fiveStarRate: number = 0;
-        let fourStarRate: number = 0;
+        let fiveStarRate: number;
+        let fourStarRate: number;
 
         if (this.fiveStarPity >= 89) {
             fiveStarRate = 30000; // 30000/30000 = 100%
@@ -48,9 +48,9 @@ export default class CharacterBanner {
             fourStarRate = 1530; // 1530/30000 = 5.1%
         }
 
-        let score: number = CharacterBanner.getRandomIntUnder30000();
+        let score: number = CharacterBanner.getRandomIntUnder(30000);
         let featured: boolean = CharacterBanner.getRandomBoolean();
-        let fourStarNumber: number = CharacterBanner.getRandomIntUnder3();
+        let fourStarNumber: number = CharacterBanner.getRandomIntUnder(3);
 
         if (score < fiveStarRate) {
             this.fourStarPity++;
@@ -69,7 +69,7 @@ export default class CharacterBanner {
 
             if (featured || this.fourStarGuaranteed) {
                 this.fourStarGuaranteed = false;
-                
+
                 if (fourStarNumber === 0) {
                     return Pull.FourStarFeatured1;
                 } else if (fourStarNumber === 1) {
@@ -77,7 +77,7 @@ export default class CharacterBanner {
                 } else {
                     return Pull.FourStarFeatured3;
                 }
-                
+
             } else {
                 this.fourStarGuaranteed = true;
                 return Pull.FourStarOther;
@@ -89,12 +89,8 @@ export default class CharacterBanner {
         }
     }
 
-    static getRandomIntUnder30000(): number {
-        return Math.floor(Math.random() * 30000);
-    }
-
-    static getRandomIntUnder3(): number {
-        return Math.floor(Math.random() * 3);
+    static getRandomIntUnder(number: number) {
+        return Math.floor(Math.random() * number);
     }
 
     static getRandomBoolean(): boolean {
