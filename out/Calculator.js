@@ -24,10 +24,10 @@ export function calculateChance(count, pull, fourPity, fourGuarantee, fivePity, 
             3, 4];
     }
     let limit = Math.floor(15000000 / count / pull);
-    for (var i = 0; i < limit; i++) {
+    for (let i = 0; i < limit; i++) {
         let player = new CharacterBanner(fourPity, fourGuarantee, fivePity, fiveGuarantee);
         let amountOfHits = 0;
-        for (var j = 0; j < pull; j++) {
+        for (let j = 0; j < pull; j++) {
             let result = player.pullOne();
             if (desiredCharacters.some(x => x == result)) {
                 amountOfHits++;
@@ -38,7 +38,6 @@ export function calculateChance(count, pull, fourPity, fourGuarantee, fivePity, 
             }
         }
     }
-    let outputString = `${(successCount / limit * 100).toFixed(2)}%`;
-    document.getElementById("output").value = outputString;
+    document.getElementById("output").value = `${(successCount / limit * 100).toFixed(1)}%`;
     return;
 }
