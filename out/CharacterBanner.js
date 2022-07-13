@@ -6,8 +6,8 @@ export default class CharacterBanner {
         this.fiveStarGuaranteed = fiveStarGuaranteed;
     }
     pullOne() {
-        let fiveStarRate = 0;
-        let fourStarRate = 0;
+        let fiveStarRate;
+        let fourStarRate;
         if (this.fiveStarPity >= 89) {
             fiveStarRate = 30000;
         }
@@ -26,9 +26,9 @@ export default class CharacterBanner {
         else {
             fourStarRate = 1530;
         }
-        let score = CharacterBanner.getRandomIntUnder30000();
+        let score = CharacterBanner.getRandomIntUnder(30000);
         let featured = CharacterBanner.getRandomBoolean();
-        let fourStarNumber = CharacterBanner.getRandomIntUnder3();
+        let fourStarNumber = CharacterBanner.getRandomIntUnder(3);
         if (score < fiveStarRate) {
             this.fourStarPity++;
             this.fiveStarPity = 0;
@@ -67,11 +67,8 @@ export default class CharacterBanner {
             return 0;
         }
     }
-    static getRandomIntUnder30000() {
-        return Math.floor(Math.random() * 30000);
-    }
-    static getRandomIntUnder3() {
-        return Math.floor(Math.random() * 3);
+    static getRandomIntUnder(number) {
+        return Math.floor(Math.random() * number);
     }
     static getRandomBoolean() {
         return (Math.random() * 2) < 1;
