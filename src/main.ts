@@ -70,19 +70,19 @@ form.addEventListener('submit', (e) => {
     let fiveGuarantee: boolean = (
         document.getElementById('5-guarantee') as HTMLInputElement).checked;
 
-    if ((document.getElementById("5-pity") as HTMLInputElement).disabled){
+    if ((document.getElementById("5-pity") as HTMLInputElement).disabled) {
         fivePity = 0;
-    };
+    }
     if ((document.getElementById("5-guarantee") as HTMLInputElement).disabled) {
         fiveGuarantee = false;
-    };
+    }
     if ((document.getElementById("4-pity") as HTMLInputElement).disabled) {
         fourPity = 0;
-    };
+    }
     if ((document.getElementById("4-guarantee") as HTMLInputElement).disabled) {
         fourGuarantee = false;
-    };
-    
+    }
+
     calculateChance(count, pull, fourPity, fourGuarantee, fivePity, fiveGuarantee);
     e.preventDefault();
 });
